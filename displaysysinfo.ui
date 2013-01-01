@@ -419,7 +419,7 @@
   <widget class="QLCDNumber" name="MEMuWlcd">
    <property name="geometry">
     <rect>
-     <x>423</x>
+     <x>562</x>
      <y>120</y>
      <width>61</width>
      <height>31</height>
@@ -429,7 +429,7 @@
   <widget class="QLCDNumber" name="MEMuVlcd">
    <property name="geometry">
     <rect>
-     <x>423</x>
+     <x>562</x>
      <y>42</y>
      <width>61</width>
      <height>31</height>
@@ -442,7 +442,7 @@
   <widget class="QLCDNumber" name="MEMuAlcd">
    <property name="geometry">
     <rect>
-     <x>423</x>
+     <x>562</x>
      <y>80</y>
      <width>61</width>
      <height>31</height>
@@ -452,7 +452,7 @@
   <widget class="QLCDNumber" name="KFCuWlcd">
    <property name="geometry">
     <rect>
-     <x>562</x>
+     <x>423</x>
      <y>120</y>
      <width>61</width>
      <height>31</height>
@@ -462,7 +462,7 @@
   <widget class="QLCDNumber" name="KFCuVlcd">
    <property name="geometry">
     <rect>
-     <x>562</x>
+     <x>423</x>
      <y>40</y>
      <width>61</width>
      <height>31</height>
@@ -472,7 +472,7 @@
   <widget class="QLCDNumber" name="KFCuAlcd">
    <property name="geometry">
     <rect>
-     <x>562</x>
+     <x>423</x>
      <y>80</y>
      <width>61</width>
      <height>31</height>
