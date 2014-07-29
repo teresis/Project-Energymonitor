@@ -1,11 +1,11 @@
 
-## how to build the Energy Monitor Qt application.
+## How to build the Energy Monitor Qt application.
 
 #### Install packages and clone the source code.
 
 ```
 # sudo apt-get install qt4-default libqwt-dev
-# git clone https://github.com/john1117/EnergyMonitor.git
+# git clone https://github.com/hardkernel/EnergyMonitor.git
 ```
 
 #### Create a project file.
