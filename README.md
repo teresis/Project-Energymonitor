@@ -1,5 +1,5 @@
 ## This is the project Energy Monitoring program compatible the odroidxu3.
-## How to build the Energy Monitor Qt application.
+### How to build the Energy Monitor Qt application.
 
 #### Install packages and clone the source code.
 
