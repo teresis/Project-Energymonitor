@@ -3,6 +3,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <QDebug>
 
@@ -38,14 +39,17 @@ QString GetNode::GetCPUCurFreq(int cpuNum)
 {
     QFile *fp = new QFile(cpu_node_list[cpuNum]);
     char buf[8];
+    int v;
 
     if (!fp->open(QIODevice::ReadOnly)) {
         return 0;
     }
 
-    fp->readLine(buf, 5);
-
+    fp->readLine(buf, 8);
     fp->close();
+
+    v = atoi(buf) / 1000;
+    sprintf(buf, "%d", v);
 
     return buf;
 }
