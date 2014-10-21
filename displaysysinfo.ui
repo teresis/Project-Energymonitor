@@ -1002,24 +1002,6 @@
     <string>MHz</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_18">
-   <property name="geometry">
-    <rect>
-     <x>11</x>
-     <y>350</y>
-     <width>111</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>S/W Version : 1.0</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_38">
    <property name="geometry">
     <rect>

@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QPalette>
+#include <QLabel>
 
 DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
     QWidget(parent),
@@ -11,18 +12,9 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(1000);
-
-    getNode = new GetNode();
-
-    displayCpuFrequency();
-
-    if (getNode->OpenINA231())
-        qDebug() << "OpenINA231 error";
-    else
-        getNode->GetINA231();
+    QLabel *version = new QLabel(this);
+    version->setText("S/W Version : 1.1");
+    version->setGeometry(10, 350, 150, 20);
 
     armPlotData.index = 0;
     memPlotData.index = 0;
@@ -34,12 +26,28 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
     gpuVolt = gpuAmpere = gpuWatt = "";
     memVolt = memAmpere = memWatt = "";
 
-    ARMSensorCurve = new QwtPlotCurve();
-    MEMSensorCurve = new QwtPlotCurve();
-    KFCSensorCurve = new QwtPlotCurve();
-    G3DSensorCurve = new QwtPlotCurve();
+    getNode = new GetNode();
 
-    displaySensorPlot();
+    SENSOR_OPEN = 1;
+
+    if (getNode->OpenINA231()) {
+        qDebug() << "OpenINA231 error";
+        SENSOR_OPEN = 0;
+        QLabel *lb = new QLabel(this);
+        lb->setText("no Energy Sensors");
+        lb->setGeometry(420, 230,130, 50);
+    } else {
+        ARMSensorCurve = new QwtPlotCurve();
+        MEMSensorCurve = new QwtPlotCurve();
+        KFCSensorCurve = new QwtPlotCurve();
+        G3DSensorCurve = new QwtPlotCurve();
+        displaySensorPlot();
+    }
+
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    timer->start(1000);
+
 }
 
 DisplaySysInfo::~DisplaySysInfo()
@@ -221,11 +229,13 @@ void DisplaySysInfo::displayCpuFrequency()
 void DisplaySysInfo::update()
 {
     displayCpuFrequency();
-    DisplaySensor();
-    drawARMSensorCurve();
-    drawMEMSensorCurve();
-    drawKFCSensorCurve();
-    drawG3DSensorCurve();
+    if (SENSOR_OPEN) {
+        DisplaySensor();
+        drawARMSensorCurve();
+        drawMEMSensorCurve();
+        drawKFCSensorCurve();
+        drawG3DSensorCurve();
+    }
 //    getNode->GetCPUUsage();
 //    ui->CPU0UsageEdit->setText(QString::number(getNode->usage[0]));
 //    ui->CPU1UsageEdit->setText(QString::number(getNode->usage[1]));

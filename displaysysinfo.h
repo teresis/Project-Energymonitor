@@ -29,6 +29,8 @@ public:
 private:
     Ui::DisplaySysInfo *ui;
 
+    unsigned char SENSOR_OPEN;
+
     GetNode *getNode;
     QwtPlotCurve *ARMSensorCurve;
     QwtPlotCurve *MEMSensorCurve;
