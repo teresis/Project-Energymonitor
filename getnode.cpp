@@ -20,33 +20,34 @@ GetNode::GetNode()
 
 QString GetNode::GetGPUCurFreq()
 {
+    FILE *fp = NULL;
+    char buf[4] = {'\0',};
+    fp = fopen(GPUFREQ_NODE, "r");
 
-    QFile *fp = new QFile(GPUFREQ_NODE);
-    char buf[4];
-
-    if (!fp->open(QIODevice::ReadOnly)) {
+    if (fp == NULL) {
         return 0;
     }
 
-    fp->readLine(buf, 4);
+    fread(buf, 1, 3, fp);
 
-    fp->close();
+    fclose(fp);
 
     return buf;
 }
 
 QString GetNode::GetCPUCurFreq(int cpuNum)
 {
-    QFile *fp = new QFile(cpu_node_list[cpuNum]);
-    char buf[8];
+    FILE *fp = NULL;
+    char buf[8] = {'\0',};
     int v;
+    fp = fopen(cpu_node_list[cpuNum].toUtf8(), "r");
 
-    if (!fp->open(QIODevice::ReadOnly)) {
+    if (fp == NULL) {
         return 0;
     }
 
-    fp->readLine(buf, 8);
-    fp->close();
+    fread(buf, 1, 8, fp);
+    fclose(fp);
 
     v = atoi(buf) / 1000;
     sprintf(buf, "%d", v);
@@ -56,18 +57,23 @@ QString GetNode::GetCPUCurFreq(int cpuNum)
 
 QString GetNode::GetCPUTemp(int cpuNum)
 {
-    QFile *fp = new QFile(TEMP_NODE);
+    FILE *fp = NULL;
+
+    fp = fopen(TEMP_NODE, "r");
+
     char buf[16];
 
-    if (!fp->open(QIODevice::ReadOnly)) {
-        return 0;
+    if (fp == NULL) {
+        return NULL;
     }
 
     for (int i = 0; i < cpuNum + 1; i++)
-        fp->read(buf, 16);
+        fread(buf, 1, 16, fp);
 
-    fp->close();
+    fclose(fp);
+
     buf[12] = '\0';
+
     return &buf[9];
 }
 
