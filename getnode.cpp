@@ -3,7 +3,6 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <fcntl.h>
 #include <QDebug>
 
@@ -20,60 +19,51 @@ GetNode::GetNode()
 
 QString GetNode::GetGPUCurFreq()
 {
-    FILE *fp = NULL;
-    char buf[4] = {'\0',};
-    fp = fopen(GPUFREQ_NODE, "r");
 
-    if (fp == NULL) {
+    QFile *fp = new QFile(GPUFREQ_NODE);
+    QString freq;
+
+    if (!fp->open(QIODevice::ReadOnly))
         return 0;
-    }
 
-    fread(buf, 1, 3, fp);
+    freq = fp->readLine();
+    freq.sprintf("%d", freq.toInt());
+    
+    fp->close();
 
-    fclose(fp);
-
-    return buf;
+    return freq;
 }
 
 QString GetNode::GetCPUCurFreq(int cpuNum)
 {
-    FILE *fp = NULL;
-    char buf[8] = {'\0',};
-    int v;
-    fp = fopen(cpu_node_list[cpuNum].toUtf8(), "r");
+    QFile *fp = new QFile(cpu_node_list[cpuNum]);
+    QString freq;
 
-    if (fp == NULL) {
+    if (!fp->open(QIODevice::ReadOnly))
         return 0;
-    }
 
-    fread(buf, 1, 8, fp);
-    fclose(fp);
+    freq = fp->readLine();
+    freq.sprintf("%d", freq.toInt()/1000);
 
-    v = atoi(buf) / 1000;
-    sprintf(buf, "%d", v);
+    fp->close();
 
-    return buf;
+    return freq;
 }
 
 QString GetNode::GetCPUTemp(int cpuNum)
 {
-    FILE *fp = NULL;
-
-    fp = fopen(TEMP_NODE, "r");
-
+    QFile *fp = new QFile(TEMP_NODE);
     char buf[16];
 
-    if (fp == NULL) {
-        return NULL;
+    if (!fp->open(QIODevice::ReadOnly)) {
+        return 0;
     }
 
     for (int i = 0; i < cpuNum + 1; i++)
-        fread(buf, 1, 16, fp);
+        fp->read(buf, 16);
 
-    fclose(fp);
-
+    fp->close();
     buf[12] = '\0';
-
     return &buf[9];
 }
 
