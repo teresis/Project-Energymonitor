@@ -30,7 +30,8 @@ QString GetNode::GetGPUCurFreq()
     freq.sprintf("%d", freq.toInt());
     
     fp->close();
-
+    
+    delete fp;
     return freq;
 }
 
@@ -47,6 +48,7 @@ QString GetNode::GetCPUCurFreq(int cpuNum)
 
     fp->close();
 
+    delete fp;
     return freq;
 }
 
@@ -64,6 +66,8 @@ QString GetNode::GetCPUTemp(int cpuNum)
 
     fp->close();
     buf[12] = '\0';
+
+    delete fp;
     return &buf[9];
 }
 

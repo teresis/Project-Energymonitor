@@ -13,7 +13,7 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
     ui->setupUi(this);
 
     QLabel *version = new QLabel(this);
-    version->setText("S/W Version : 1.1");
+    version->setText("S/W Version : 1.2");
     version->setGeometry(10, 350, 150, 20);
 
     armPlotData.index = 0;
