@@ -12,10 +12,6 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QLabel *version = new QLabel(this);
-    version->setText("S/W Version : 1.2");
-    version->setGeometry(10, 350, 150, 20);
-
     armPlotData.index = 0;
     memPlotData.index = 0;
     kfcPlotData.index = 0;
@@ -43,6 +39,12 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
         G3DSensorCurve = new QwtPlotCurve();
         displaySensorPlot();
     }
+
+    getNode->GetSystemInfo();
+
+    ui->losname->setText(getNode->os_name + " : " + getNode->os_ver);
+    ui->lkernel->setText("Kernel : " + getNode->kernel_ver);
+    ui->lsw_ver->setText("Energy Monitor 1.3");
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));

@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <QDebug>
+#include <QProcess>
+#include <QSysInfo>
 
 GetNode::GetNode()
 {
@@ -15,6 +17,27 @@ GetNode::GetNode()
         temp.sprintf("/sys/devices/system/cpu/cpu%d/cpufreq/cpuinfo_cur_freq", i);
         cpu_node_list[i] = temp;
     }
+}
+
+void GetNode::GetSystemInfo()
+{
+    QProcess p1;
+    QString cmd;
+
+    cmd = "lsb_release -r | awk '{print $2}'";
+    p1.start("bash", QStringList() << "-c" << cmd);
+    p1.waitForFinished(-1);
+    os_ver = p1.readAllStandardOutput().simplified();
+
+    cmd = "lsb_release -i | awk '{print $3}'";
+    p1.start("bash", QStringList() << "-c" << cmd);
+    p1.waitForFinished(-1);
+    os_name = p1.readAllStandardOutput().simplified();
+
+    cmd = "uname -r";
+    p1.start("bash", QStringList() << "-c" << cmd);
+    p1.waitForFinished(-1);
+    kernel_ver = p1.readAllStandardOutput().simplified();
 }
 
 QString GetNode::GetGPUCurFreq()
@@ -28,9 +51,9 @@ QString GetNode::GetGPUCurFreq()
 
     freq = fp->readLine();
     freq.sprintf("%d", freq.toInt());
-    
+
     fp->close();
-    
+
     delete fp;
     return freq;
 }
@@ -54,21 +77,38 @@ QString GetNode::GetCPUCurFreq(int cpuNum)
 
 QString GetNode::GetCPUTemp(int cpuNum)
 {
-    QFile *fp = new QFile(TEMP_NODE);
+    QFile *fp;
+
     char buf[16];
 
-    if (!fp->open(QIODevice::ReadOnly)) {
-        return 0;
+    if (kernel_ver[0] == '4') {
+        fp = new QFile(TEMP_NODE_v4 + QString::number(cpuNum) + "/temp");
+
+        if (!fp->open(QIODevice::ReadOnly)) {
+            return 0;
+        }
+
+        fp->read(buf, 2);
+        buf[2] = '\0';
+        fp->close();
+        delete fp;
+
+        return buf;
+    } else {
+        fp = new QFile(TEMP_NODE);
+
+        if (!fp->open(QIODevice::ReadOnly)) {
+            return 0;
+        }
+
+        for (int i = 0; i < cpuNum + 1; i++)
+            fp->read(buf, 16);
+        fp->close();
+        delete fp;
+        buf[12] = '\0';
+
+        return &buf[10];
     }
-
-    for (int i = 0; i < cpuNum + 1; i++)
-        fp->read(buf, 16);
-
-    fp->close();
-    buf[12] = '\0';
-
-    delete fp;
-    return &buf[9];
 }
 
 

@@ -7,6 +7,7 @@
 
 #define GPUFREQ_NODE    "/sys/devices/11800000.mali/clock"
 #define TEMP_NODE       "/sys/devices/10060000.tmu/temp"
+#define TEMP_NODE_v4    "/sys/class/thermal/thermal_zone"
 
 typedef struct ina231_iocreg__t {
     char name[20];
@@ -38,7 +39,6 @@ enum    {
     SENSOR_MAX
 };
 
-
 class GetNode
 {
 public:
@@ -49,6 +49,10 @@ public:
     float kfcuV, kfcuA, kfcuW;
     float memuV, memuA, memuW;
     int usage[8];
+    QString os_name1;
+    QString os_name;
+    QString os_ver;
+    QString kernel_ver;
 
     QString GetGPUCurFreq(void);
     QString GetCPUCurFreq(int cpuNum);
@@ -65,6 +69,7 @@ public:
     int OpenINA231(void);
     void CloseINA231(void);
     void GetINA231(void);
+    void GetSystemInfo(void);
 
 private:
     sensor_t sensor[SENSOR_MAX];
