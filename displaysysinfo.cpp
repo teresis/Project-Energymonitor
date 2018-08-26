@@ -160,37 +160,8 @@ void DisplaySysInfo::drawG3DSensorCurve()
 
 void DisplaySysInfo::DisplaySensor()
 {
-    getNode->GetINA231();
 
-    //float2string();
 
-    ui->ARMuVlcd->setPalette(QColor(100, 100, 100));
-    ui->ARMuAlcd->setPalette(QColor(100, 100, 100));
-    ui->ARMuWlcd->setPalette(QColor(100, 100, 100));
-    ui->ARMuVlcd->display(a15Volt);
-    ui->ARMuAlcd->display(a15Ampere);
-    ui->ARMuWlcd->display(a15Watt);
-
-    ui->KFCuVlcd->setPalette(QColor(100, 100, 100));
-    ui->KFCuAlcd->setPalette(QColor(100, 100, 100));
-    ui->KFCuWlcd->setPalette(QColor(100, 100, 100));
-    ui->KFCuVlcd->display(a7Volt);
-    ui->KFCuAlcd->display(a7Ampere);
-    ui->KFCuWlcd->display(a7Watt);
-
-    ui->G3DuVlcd->setPalette(QColor(100, 100, 100));
-    ui->G3DuAlcd->setPalette(QColor(100, 100, 100));
-    ui->G3DuWlcd->setPalette(QColor(100, 100, 100));
-    ui->G3DuVlcd->display(gpuVolt);
-    ui->G3DuAlcd->display(gpuAmpere);
-    ui->G3DuWlcd->display(gpuWatt);
-
-    ui->MEMuVlcd->setPalette(QColor(100, 100, 100));
-    ui->MEMuAlcd->setPalette(QColor(100, 100, 100));
-    ui->MEMuWlcd->setPalette(QColor(100, 100, 100));
-    ui->MEMuVlcd->display(memVolt);
-    ui->MEMuAlcd->display(memAmpere);
-    ui->MEMuWlcd->display(memWatt);
 }
 
 void DisplaySysInfo::float2string()
