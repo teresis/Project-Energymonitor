@@ -24,8 +24,10 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
 
     getNode = new GetNode();
 
-    SENSOR_OPEN = 1;
+//    SENSOR_OPEN = 1;
 
+    SENSOR_OPEN = 0;
+/*
     if (getNode->OpenINA231()) {
         qDebug() << "OpenINA231 error";
         SENSOR_OPEN = 0;
@@ -39,7 +41,7 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
         G3DSensorCurve = new QwtPlotCurve();
         displaySensorPlot();
     }
-
+*/
     getNode->GetSystemInfo();
 
     ui->losname->setText(getNode->os_name + " : " + getNode->os_ver);
@@ -48,13 +50,13 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(1000);
+    timer->start(100);
 
 }
 
 DisplaySysInfo::~DisplaySysInfo()
 {
-    getNode->CloseINA231();
+    //getNode->CloseINA231();
     delete ui;
 }
 
@@ -160,7 +162,7 @@ void DisplaySysInfo::DisplaySensor()
 {
     getNode->GetINA231();
 
-    float2string();
+    //float2string();
 
     ui->ARMuVlcd->setPalette(QColor(100, 100, 100));
     ui->ARMuAlcd->setPalette(QColor(100, 100, 100));

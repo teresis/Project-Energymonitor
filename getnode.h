@@ -6,6 +6,7 @@
 #include <sys/ioctl.h>
 
 #define GPUFREQ_NODE    "/sys/devices/11800000.mali/clock"
+#define GPUFREQ_NODE_v4 "/sys/devices/platform/11800000.mali/devfreq/devfreq0/cur_freq"
 #define TEMP_NODE       "/sys/devices/10060000.tmu/temp"
 #define TEMP_NODE_v4    "/sys/class/thermal/thermal_zone"
 

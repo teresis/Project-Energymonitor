@@ -47,7 +47,14 @@ QString GetNode::GetGPUCurFreq()
     QString freq;
 
     if (kernel_ver[0] == '4') {
-        freq.sprintf("%d", 600);
+        //freq.sprintf("%d", 600);
+	fp = new QFile(GPUFREQ_NODE_v4);
+        if (!fp->open(QIODevice::ReadOnly))
+            return 0;
+        freq = fp->readLine();
+        freq.sprintf("%d", freq.toInt()/1000000);
+        fp->close();
+        delete fp;
     } else {
         fp = new QFile(GPUFREQ_NODE);
         if (!fp->open(QIODevice::ReadOnly))
