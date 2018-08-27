@@ -27,6 +27,7 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
 //    SENSOR_OPEN = 1;
 
     SENSOR_OPEN = 0;
+    displaySensorPlot();
 /*
     if (getNode->OpenINA231()) {
         qDebug() << "OpenINA231 error";
