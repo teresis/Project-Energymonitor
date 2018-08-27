@@ -58,6 +58,7 @@ public:
     QString GetGPUCurFreq(void);
     QString GetCPUCurFreq(int cpuNum);
     QString GetCPUTemp(int cpuNum);
+    /*
     int GetCPUUsage(void);
     int calUsage(int cpu_idx, int user, int nice, int system, int idle);
 
@@ -70,6 +71,7 @@ public:
     int OpenINA231(void);
     void CloseINA231(void);
     void GetINA231(void);
+    */
     void GetSystemInfo(void);
 
 private:

@@ -68,7 +68,7 @@ void DisplaySysInfo::displaySensorPlot()
     ui->qwtPlotSensor->setAxisTitle(QwtPlot::yLeft, "Watt");
     ui->qwtPlotSensor->setCanvasBackground(QBrush(QColor(0, 0, 0)));
     ui->qwtPlotSensor->setTitle("Watt Graph");
-
+/*
     ARMSensorCurve->attach(ui->qwtPlotSensor);
     ARMSensorCurve->setPen(QColor(50, 160, 140));
 
@@ -80,8 +80,10 @@ void DisplaySysInfo::displaySensorPlot()
 
     G3DSensorCurve->attach(ui->qwtPlotSensor);
     G3DSensorCurve->setPen(QColor(200, 160, 50));
+*/
 }
 
+/*
 void DisplaySysInfo::drawARMSensorCurve()
 {
     if (getNode->armuW > 0 && getNode->armuW < 10) {
@@ -182,6 +184,7 @@ void DisplaySysInfo::float2string()
     memAmpere.sprintf("%.3f", getNode->memuA);
     memWatt.sprintf("%.3f", getNode->memuW);
 }
+*/
 
 void DisplaySysInfo::displayCpuFrequency()
 {
@@ -205,7 +208,7 @@ void DisplaySysInfo::update()
 {
     displayCpuFrequency();
     if (SENSOR_OPEN) {
-        DisplaySensor();
+        //DisplaySensor();
         drawARMSensorCurve();
         drawMEMSensorCurve();
         drawKFCSensorCurve();

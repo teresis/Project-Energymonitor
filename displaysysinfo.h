@@ -48,13 +48,16 @@ private:
     QString gpuVolt, gpuAmpere, gpuWatt;
     QString memVolt, memAmpere, memWatt;
 
-    void DisplaySensor(void);
-    void float2string(void);
+    //void DisplaySensor(void);
+    //void float2string(void);
+
     void displaySensorPlot(void);
+    /*
     void drawARMSensorCurve(void);
     void drawMEMSensorCurve(void);
     void drawKFCSensorCurve(void);
     void drawG3DSensorCurve(void);
+    */
     void displayCpuFrequency(void);
 
 private slots:

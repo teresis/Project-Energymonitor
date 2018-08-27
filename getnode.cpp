@@ -52,7 +52,7 @@ QString GetNode::GetGPUCurFreq()
         if (!fp->open(QIODevice::ReadOnly))
             return 0;
         freq = fp->readLine();
-        freq.sprintf("%d", freq.toInt()/1000000);
+        freq.sprintf("%d", freq.toInt()/1000);
         fp->close();
         delete fp;
     } else {
@@ -60,7 +60,7 @@ QString GetNode::GetGPUCurFreq()
         if (!fp->open(QIODevice::ReadOnly))
             return 0;
         freq = fp->readLine();
-        freq.sprintf("%d", freq.toInt());
+        freq.sprintf("%d", freq.toInt()/1000);
         fp->close();
         delete fp;
     }
@@ -121,7 +121,7 @@ QString GetNode::GetCPUTemp(int cpuNum)
     }
 }
 
-
+/*
 int GetNode::open_sensor(const char *node, sensor_t *sensor)
 {
     if ((sensor->fd = open(node, O_RDWR)) < 0)
@@ -292,3 +292,4 @@ int GetNode::GetCPUUsage(void)
 
     return 0;
 }
+*/
