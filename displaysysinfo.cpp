@@ -208,11 +208,12 @@ void DisplaySysInfo::update()
 {
     displayCpuFrequency();
     if (SENSOR_OPEN) {
-        //DisplaySensor();
+        /*DisplaySensor();
         drawARMSensorCurve();
         drawMEMSensorCurve();
         drawKFCSensorCurve();
         drawG3DSensorCurve();
+        */
     }
 //    getNode->GetCPUUsage();
 //    ui->CPU0UsageEdit->setText(QString::number(getNode->usage[0]));
