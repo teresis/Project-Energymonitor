@@ -45,11 +45,14 @@ class GetNode
 public:
     GetNode();
     QString cpu_node_list[8];
+/*
     float armuV,armuA, armuW;
     float g3duV, g3duA, g3duW;
     float kfcuV, kfcuA, kfcuW;
     float memuV, memuA, memuW;
-    int usage[8];
+    //int usage[8];
+*/
+    int gpufreq;
     QString os_name1;
     QString os_name;
     QString os_ver;

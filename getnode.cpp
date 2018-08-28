@@ -10,7 +10,7 @@
 
 GetNode::GetNode()
 {
-    usage[8] = {0,};
+   // usage[8] = {0,};
 
     for (int i = 0; i < 8; i++) {
         QString temp;
@@ -52,7 +52,8 @@ QString GetNode::GetGPUCurFreq()
         if (!fp->open(QIODevice::ReadOnly))
             return 0;
         freq = fp->readLine();
-        freq.sprintf("%d", freq.toInt()/1000);
+	gpufreq = freq.toInt()/1000000;
+        freq.sprintf("%d", gpufreq);
         fp->close();
         delete fp;
     } else {
@@ -60,7 +61,7 @@ QString GetNode::GetGPUCurFreq()
         if (!fp->open(QIODevice::ReadOnly))
             return 0;
         freq = fp->readLine();
-        freq.sprintf("%d", freq.toInt()/1000);
+        freq.sprintf("%d", freq.toInt()/1000000);
         fp->close();
         delete fp;
     }

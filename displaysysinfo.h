@@ -52,8 +52,8 @@ private:
     //void float2string(void);
 
     void displaySensorPlot(void);
-    /*
     void drawARMSensorCurve(void);
+    /*
     void drawMEMSensorCurve(void);
     void drawKFCSensorCurve(void);
     void drawG3DSensorCurve(void);

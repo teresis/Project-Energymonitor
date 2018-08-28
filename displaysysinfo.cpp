@@ -27,7 +27,8 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
 //    SENSOR_OPEN = 1;
 
     SENSOR_OPEN = 0;
-    displaySensorPlot();
+    ARMSensorCurve = new QwtPlotCurve();
+    displaySensorPlot();   
 /*
     if (getNode->OpenINA231()) {
         qDebug() << "OpenINA231 error";
@@ -63,16 +64,16 @@ DisplaySysInfo::~DisplaySysInfo()
 
 void DisplaySysInfo::displaySensorPlot()
 {
-    ui->qwtPlotSensor->setAxisScale(QwtPlot::yLeft, 0, 5);
+    ui->qwtPlotSensor->setAxisScale(QwtPlot::yLeft, 0, 1000);
     ui->qwtPlotSensor->setAxisScale(QwtPlot::xBottom, 0, 100);
-    ui->qwtPlotSensor->setAxisTitle(QwtPlot::xBottom, "sec");
-    ui->qwtPlotSensor->setAxisTitle(QwtPlot::yLeft, "Watt");
+    ui->qwtPlotSensor->setAxisTitle(QwtPlot::xBottom, "0.1sec");
+    ui->qwtPlotSensor->setAxisTitle(QwtPlot::yLeft, "MHZ");
     ui->qwtPlotSensor->setCanvasBackground(QBrush(QColor(0, 0, 0)));
-    ui->qwtPlotSensor->setTitle("Watt Graph");
-/*
+    ui->qwtPlotSensor->setTitle("Frequency Graph");
+
     ARMSensorCurve->attach(ui->qwtPlotSensor);
     ARMSensorCurve->setPen(QColor(50, 160, 140));
-
+/*
     MEMSensorCurve->attach(ui->qwtPlotSensor);
     MEMSensorCurve->setPen(QColor(255, 0, 0));
 
@@ -84,17 +85,17 @@ void DisplaySysInfo::displaySensorPlot()
 */
 }
 
-/*
+
 void DisplaySysInfo::drawARMSensorCurve()
 {
-    if (getNode->armuW > 0 && getNode->armuW < 10) {
+    if (getNode->gpufreq > 0 && getNode->gpufreq < 1000) {
         if (armPlotData.index < 99) {
-            armPlotData.yData[armPlotData.index] = getNode->armuW;
+            armPlotData.yData[armPlotData.index] = getNode->gpufreq;
             armPlotData.xData[armPlotData.index] = armPlotData.index;
             armPlotData.index++;
         } else {
-            armPlotData.yData[99] = getNode->armuW;
-            for (int i = 0; i < 100; i++) {
+            armPlotData.yData[99] = getNode->gpufreq;
+            for (int i = 0; i < 99; i++) {
                 armPlotData.yData[i] = armPlotData.yData[i + 1];
             }
         }
@@ -103,7 +104,7 @@ void DisplaySysInfo::drawARMSensorCurve()
     ARMSensorCurve->setSamples(armPlotData.xData, armPlotData.yData, armPlotData.index);
     ui->qwtPlotSensor->replot();
 }
-
+/*
 void DisplaySysInfo::drawMEMSensorCurve()
 {
     if (getNode->memuW > 0 && getNode->memuW < 10) {
@@ -208,6 +209,7 @@ void DisplaySysInfo::displayCpuFrequency()
 void DisplaySysInfo::update()
 {
     displayCpuFrequency();
+    drawARMSensorCurve();
     if (SENSOR_OPEN) {
         /*DisplaySensor();
         drawARMSensorCurve();
