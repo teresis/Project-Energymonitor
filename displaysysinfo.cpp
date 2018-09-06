@@ -16,12 +16,12 @@ DisplaySysInfo::DisplaySysInfo(QWidget *parent) :
     memPlotData.index = 0;
     kfcPlotData.index = 0;
     g3dPlotData.index = 0;
-
+/*
     a15Volt = a15Ampere = a15Watt = "";
     a7Volt = a7Ampere = a7Watt = "";
     gpuVolt = gpuAmpere = gpuWatt = "";
     memVolt = memAmpere = memWatt = "";
-
+*/
     getNode = new GetNode();
 
 //    SENSOR_OPEN = 1;
@@ -64,15 +64,15 @@ DisplaySysInfo::~DisplaySysInfo()
 
 void DisplaySysInfo::displaySensorPlot()
 {
-    ui->qwtPlotSensor->setAxisScale(QwtPlot::yLeft, 0, 1000);
+    ui->qwtPlotSensor->setAxisScale(QwtPlot::yLeft, 0, 800);
     ui->qwtPlotSensor->setAxisScale(QwtPlot::xBottom, 0, 100);
     ui->qwtPlotSensor->setAxisTitle(QwtPlot::xBottom, "0.1sec");
     ui->qwtPlotSensor->setAxisTitle(QwtPlot::yLeft, "MHZ");
-    ui->qwtPlotSensor->setCanvasBackground(QBrush(QColor(0, 0, 0)));
+   // ui->qwtPlotSensor->setCanvasBackground(QBrush(QColor(0, 0, 0)));
     ui->qwtPlotSensor->setTitle("Frequency Graph");
 
     ARMSensorCurve->attach(ui->qwtPlotSensor);
-    ARMSensorCurve->setPen(QColor(50, 160, 140));
+    ARMSensorCurve->setPen(QColor(200, 160, 140));
 /*
     MEMSensorCurve->attach(ui->qwtPlotSensor);
     MEMSensorCurve->setPen(QColor(255, 0, 0));
